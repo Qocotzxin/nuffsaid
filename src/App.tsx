@@ -1,22 +1,15 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import generateMessage, { Message } from './Api';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import React from "react";
+import { Main } from "./components/features";
+import { MessageProvider } from "./contexts/MessagesContext";
 
 const App: React.FC<{}> = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  useEffect(() => {
-    const cleanUp = generateMessage((message: Message) => {
-      setMessages(oldMessages => [...oldMessages, message]);
-    });
-    return cleanUp;
-  }, [setMessages]);
-
   return (
-    <div>
-      {messages?.map?.(msg => <div key={msg?.message}>{msg?.message}</div>)}
-    </div>
+    <MessageProvider>
+      <CssBaseline />
+      <Main />
+    </MessageProvider>
   );
-}
+};
 
 export default App;
